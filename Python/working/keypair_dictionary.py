@@ -52,7 +52,7 @@ def keypair_convert(file_loc):
             tmp_line = line.strip()
             if not tmp_line.startswith("#"):
                 name, var = line.partition("=")[::2]
-                myvars[name.strip()] = var
+                myvars[name.strip()] = var.strip()
     return myvars
 
 
