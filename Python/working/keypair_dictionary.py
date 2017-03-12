@@ -25,23 +25,34 @@ import os
 import sys
 import argparse
 
+
 keypair_dir = os.getcwd()
 keypair_file_name = 'key_pairs.txt'
 # file_path = os.path.join(keypair_dir, keypair_file_name)
 
 
 def main():
-    print "File Name: %s" %(args.f)
-    print "Directory Path: %s" %(args.d)
-    print "Will read the keypair value text file from below path"
-    print "Full file path: %s" %file_path
+    print '\nFile Name: %s\n' %(args.f)
+    print 'Directory Path: %s\n' %(args.d)
+    print 'Will read the keypair value text file from below path'
+    print 'Full file path: %s\n' %file_path
+
+    keypair_dict = keypair_convert(file_path)
+    print 'Keypair Value Dictionary:'
+    print keypair_dict
+    print
+    print 'Printing first key value- %s\n' %(keypair_dict['Test1'])
+    print 'Printing all keys: %s\n' %(keypair_dict.keys())
+    print 'Printing all values: %s\n' %(keypair_dict.values())
 
 def keypair_convert(file_loc):
     myvars = {}
     with open(file_loc) as myfile:
         for line in myfile:
-            name, var = line.partition("=")[::2]
-            myvars[name.strip()] = var
+            tmp_line = line.strip()
+            if not tmp_line.startswith("#"):
+                name, var = line.partition("=")[::2]
+                myvars[name.strip()] = var
     return myvars
 
 
@@ -56,7 +67,3 @@ if __name__ == "__main__":
     file_path = os.path.join(args.d, args.f)
 
     main()
-
-    keypair_dict = keypair_convert(file_path)
-    print keypair_dict
-    print keypair_dict['Test1']
